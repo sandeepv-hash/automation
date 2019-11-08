@@ -2,9 +2,18 @@ pipeline {
 
   agent any
   
+  parameters {
+
+        choice(choices: ['apply','destroy'], description: '', name: 'trigger')
+        strin
+  
      stages {
 
             stage("Terraform init") {
+            when {
+             
+                expression { params.trigger == 'apply' }
+                }
            
              steps{
 
@@ -14,6 +23,10 @@ pipeline {
             }
             
             stage("Terraform Plan") {
+            when {
+             
+                expression { params.trigger == 'apply' }
+                }
             
              steps{
                    sh script: "/usr/local/bin/terraform plan" 
@@ -22,15 +35,23 @@ pipeline {
 
             stage("Terraform Apply") {
             
+            when {
+             
+                expression { params.trigger == 'apply' }
+                }
              steps{
                    sh script: "/usr/local/bin/terraform apply -auto-approve"
                }
             }
             
             stage("Terraform Destroy") {
+            when {
+             
+                expression { params.trigger == 'destroy' }
+                }
             
              steps{
-                   sh script: "/usr/local/bin/terraform destroy"
+                   sh script: "/usr/local/bin/terraform destroy -auto-approve"
                }
             }
 
