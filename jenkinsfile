@@ -1,0 +1,34 @@
+pipeline {
+
+  agent any
+  
+     stages {
+
+            stage("Terraform init") {
+           
+             steps{
+
+                   sh script: "cd terraform;/usr/local/bin/terraform init"
+                   
+                   
+                   
+               }
+            }
+            
+            stage("Terraform Plan") {
+            
+             steps{
+                   sh script: "cd terraform;/usr/local/bin/terraform plan" 
+               }
+            }
+
+            stage("Terraform Apply Destroy") {
+            
+             steps{
+                   sh script: "cd terraform;/usr/local/bin/terraform apply -auto-approve"
+               }
+            }
+            
+
+      }
+    }
