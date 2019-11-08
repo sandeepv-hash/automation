@@ -27,6 +27,12 @@ pipeline {
                }
             }
             
+            stage("Terraform Destroy") {
+            
+             steps{
+                   sh script: "/usr/local/bin/terraform destroy"
+               }
+            }
 
       }
     }
