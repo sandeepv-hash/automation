@@ -5,7 +5,7 @@ provider "aws" {
 
 
 resource "aws_instance" "RHEL_inst" {
-count         = 1
+count         = 2
 ami           = "ami-0520e698dd500b1d1"
   instance_type = "${var.instance_type}"
   subnet_id     = "${var.subnet_id}"
